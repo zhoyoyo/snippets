@@ -1,32 +1,16 @@
-// NPM modules
-var _ = {};
-_.assign = require('lodash.assign');
+// ==================================
 
-var d3 = _.assign({},
-    require("d3-selection"),
-    require("d3-request"),
-    require("d3-scale"),
-    require('d3-geo'),
-    require("d3-transition")
-);
+// build a moon and make it rotate
+
+// preview: https://twitter.com/YAN0/status/1081211096134864897
+// story: https://qz.com/1511987/
+
+// ==================================
 
 var versor = require("versor");
 var THREE = require('three');
 var TrackballControls = require('three-trackballcontrols');
 var irregularQuantize = require("./irregular-quantize");
-
-d3.getEvent = function(){ return require("d3-selection").event}.bind(this);
-
-
-// Local modules
-var features = require('./detectFeatures')();
-var fm = require('./fm');
-var utils = require('./utils');
-
-
-// Globals
-var DEFAULT_WIDTH = 940;
-var MOBILE_BREAKPOINT = 600;
 
 // Defaults and globals for scrollable
 var total_scroll = 1000;
@@ -160,24 +144,6 @@ function drawGlobe(){
     renderScene();
 
 
-}
-
-function showImage(imgIndex){
-    // add an image
-    d3.selectAll('#graphic .image-' + imgIndex)
-        .transition().duration(200)
-        .style('opacity',1)
-        .on('end',function(){
-            d3.select(this).select('img').classed('multiply',true);
-        })
-}
-
-function hideImage(imgIndex) {
-    d3.selectAll('#graphic .image-' + imgIndex)
-        .style('opacity',0);
-
-    d3.selectAll('#graphic .image-' + imgIndex + ' img')
-        .classed('multiply',false);
 }
 
 function createSphere(segments) {
@@ -572,6 +538,11 @@ function addPoint(q, color) {
 
 
 
+
+// ~~~~~~~~~
+// below is scrolly stuff
+// ~~~~~~~~~
+
  function updateScrollables(fromResize) {
 
      if(has_fully_loaded_once && !fromResize) {
@@ -748,6 +719,11 @@ function addPoint(q, color) {
      // adjust the position of the annotations to simulate scrolling
      annotations.style("top", progress(scrollDepth) + "px")
  }
+
+
+
+
+
 
 
 /**
